@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1. NO tocar archivos reales
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 2. NO tocar llamadas a la API backend
+  RewriteCond %{REQUEST_URI} ^/servicio/ [NC]
+  RewriteRule ^ - [L]
+
+  # 3. Todo lo demás va a index.html (React Router)
+  RewriteRule ^ index.html [L]
+</IfModule>
